@@ -4,7 +4,7 @@ dbManager = mysql_op.DBManager()
 sel_sql = "SELECT %s FROM %s;"
 
 
-def view_page():    # 查询课程信息
+def view_page():  # 查询课程信息
     sql_ = "SELECT * FROM no_course order by no_course ASC limit %s,10"
     current_page_no = 1
 
@@ -38,7 +38,7 @@ def view_page():    # 查询课程信息
             continue
 
 
-def create_class():     # 创建课程-班级表
+def create_class():  # 创建课程-班级表
     view_page()
 
     course = input("输入考试的课程名称：")  # 获取考试该课程的班级
@@ -78,7 +78,7 @@ def create_class():     # 创建课程-班级表
             dbManager.edit(sql)
 
 
-def export_course():    # 导入课程信息
+def export_course():  # 导入课程信息
     sql_1, sql_2 = 'no_course', 'no_course ORDER BY no_course DESC LIMIT 1'
     sql = sel_sql % (sql_1, sql_2)
     no_max = dbManager.fetchall(sql)

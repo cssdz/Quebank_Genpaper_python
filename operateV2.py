@@ -15,14 +15,13 @@ class STUManager:  # 创建考生类
 
     def search_judge(self):  # 判断使用几个字段查询
         if self.option == '0':
-            self.sql = "SELECT * FROM %s" % self.tab_name
+            self.sql = "SELECT * FROM %s ORDER BY %s" % (self.tab_name, self.tab_name)
 
         if self.option == '1':
             self.value_1 = input("请输入%s：\n" % self.call_1)
             self.sql = "SELECT * FROM %s WHERE %s = '%s';" % (self.tab_name, self.column_1, self.value_1)
 
         if self.option == '2':
-            self.value_1 = input("请输入%s：\n" % self.call_1)
             self.value_2 = input("请输入%s：\n" % self.call_2)
             self.sql = "SELECT * FROM %s WHERE %s = %s AND %s = %s;" % (
                 self.tab_name, self.column_1, self.value_1, self.column_2, self.value_2)
@@ -106,7 +105,7 @@ class STUManager:  # 创建考生类
         info, no_2 = info_combine[0], info_combine[1]
 
         for i in range(len(no_2)):
-            print(no_2[i][0])
+            # print(no_2[i][0])
             if no_2[i][0] == self.column_2:
                 self.value_2 = info[self.option - 1][i]
             if no_2[i][0] == self.column_3:
@@ -144,6 +143,11 @@ class COUManager(STUManager):  # 创建考题类，继承考生类
         option = input("请输入题型编号：\n")
         self.tab_name = '%s_que' % option
         print(self.tab_name)
+        sql = "SELECT no_type from no_type WHERE no_type = %s" % option
+        res = dbManager.fetchall(sql)
+        if res is False:
+            print("输入的题型编号有误!")
+            return self.judge()
 
     def kno_info(self):  # 查询知识点信息
         self.tab_name, self.option = "no_course", '0'
