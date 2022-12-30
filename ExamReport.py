@@ -193,5 +193,3 @@ def path(course, dept, class_info):
         os.makedirs(path_info)
     return path_info
 
-
-export_report()
